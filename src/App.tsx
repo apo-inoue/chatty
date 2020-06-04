@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Context, createContext, useReducer } from "react";
+import Amplify from "@aws-amplify/core";
+import awsmoblile from "./aws-exports";
+import { withAuthenticator } from "aws-amplify-react";
+import Interview from "./Interview";
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  ApolloLink,
+  useMutation,
+  gql,
+} from "@apollo/client";
 
-function App() {
+Amplify.configure(awsmoblile);
+
+// const greet = (value:{type:string, payload:any}) => console.log("hello", value.type)
+export const InterviewContext: Context<{
+  state: { text: string };
+  dispatch: React.Dispatch<any>;
+}> = createContext({ state: {} as any, dispatch: {} as any });
+
+const reducer = (state: any, action: { type: any; payload: any }) => {
+  const { type, payload } = action;
+  console.log(action, state);
+  switch (type) {
+    case "interview:edit":
+      console.log("edit!");
+      return { ...state, ...payload };
+    default:
+      console.log("default!");
+      return state;
+  }
+};
+
+const initialState = { text: "新規問診票" };
+
+const WRITE_ANYTHING = gql`
+  mutation WriteAnything {
+    writeAnything @client {
+      todos
+    }
+  }
+`;
+
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const value = { state, dispatch };
+  console.log("App, state", state);
+  const [writeAnything] = useMutation(WRITE_ANYTHING);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <InterviewContext.Provider value={value}>
+      <Interview />
+      <button type="button" onClick={() => writeAnything()}>
+        buto
+      </button>
+    </InterviewContext.Provider>
   );
-}
+};
 
+//@ts-ignore
 export default App;

@@ -3,14 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
+    "@auth0/auth0-spa-js": "1.8.1",
+    "@convoy/tracer": "^1.0.158",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/react-dom": "^16.9.8",
+    "apollo-boost": "^0.4.9",
+    "apollo-client-devtools": "^2.3.1",
+    "apollo-link-logger": "^1.2.3",
+    "apollo-link-tracer": "^1.0.26",
+    "aws-amplify": "^3.0.13",
+    "aws-amplify-react": "^4.1.12",
+    "aws-appsync": "^3.0.3",
+    "graphql": "^15.0.0",
     "react": "^16.13.1",
+    "react-apollo": "^4.0.0-beta.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2"
@@ -35,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "apollo-cache-logger": "^1.1.1"
   }
 }
